@@ -16,7 +16,7 @@ def server_static(filepath):
 
 @chat.route('/')
 def index():
-    return template('index.tpl')
+    return template('index')
 
 
 @chat.route('/websocket')
