@@ -38,5 +38,5 @@ def handle_websocket():
         except WebSocketError:
             break
 
-server = WSGIServer(("0.0.0.0", 80), chat, handler_class=WebSocketHandler)
+server = WSGIServer(("0.0.0.0", 8080), chat, handler_class=WebSocketHandler)
 server.serve_forever()

@@ -21,9 +21,18 @@ ws.onmessage = function (event) {
     var h = date.getHours();
     var m = date.getMinutes();
     var time = (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m);
-    $("#messages-list ul").append("<li><div class='msg " + ((nick == msg.user) ? '' : 'to-me') + "'>\
-        <p class='text'><b>" + msg.user +"</b>:<br />" + msg.text + "</p>\
-        <p class='time'>" + time + "</p></div></li>");
+    if (msg.text.length > 4)
+        var expans = msg.text.substr(msg.text.length - 4);
+    if (expans == ".jpg" || expans == ".png" || expans == ".gif") {
+        $("#messages-list ul").append("<li><div class='msg " + ((nick == msg.user) ? '' : 'to-me') + "'>\
+            <p class='text'><b>" + msg.user +"</b>:</p>\
+            <img width='200px' src='" + msg.text + "'><br />\
+            <p class='time'>" + time + "</p></div></li>");
+    } else {
+        $("#messages-list ul").append("<li><div class='msg " + ((nick == msg.user) ? '' : 'to-me') + "'>\
+            <p class='text'><b>" + msg.user +"</b>:<br />" + msg.text + "</p>\
+            <p class='time'>" + time + "</p></div></li>");
+    }
     $("#messages-list").stop().animate({
         scrollTop: $('#messages-list')[0].scrollHeight
     }, 800);
