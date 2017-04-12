@@ -37,12 +37,12 @@ def handle_websocket():
                     answer = json.dumps({
                         'user': html.escape(msg['user']),
                         'text': html.escape(msg['text'])
-                        })
+                    })
                     wsock.send(answer)
                 except Exception:
                     pass
         except WebSocketError:
             break
 
-server = WSGIServer(("0.0.0.0", 80), chat, handler_class=WebSocketHandler)
+server = WSGIServer(("0.0.0.0", 8080), chat, handler_class=WebSocketHandler)
 server.serve_forever()
