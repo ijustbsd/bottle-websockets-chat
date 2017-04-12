@@ -3,7 +3,7 @@ $("#user-menu p").html(nick);
 
 var ws = new WebSocket("ws://" + location.host + "/websocket");
 
-var clients = []
+var clients = [];
 
 ws.onmessage = function (event) {
     var i = event.data.indexOf(":");
@@ -20,9 +20,9 @@ ws.onmessage = function (event) {
 
     if (text == "" || text == "\n")
         return;
-    date = new Date();
-    h = date.getHours();
-    m = date.getMinutes();
+    var date = new Date();
+    var h = date.getHours();
+    var m = date.getMinutes();
     var time = (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m);
     $("#messages-list ul").append("<li><div class='msg " + ((nick == user) ? '' : 'to-me') + "'><p class='text'><b>" + user +"</b>:<br />" + text + "</p><p class='time'>" + time + "</p></div></li>");
     $("#messages-list").stop().animate({
