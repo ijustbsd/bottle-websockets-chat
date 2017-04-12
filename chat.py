@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from bottle import Bottle, request, abort, static_file, template
 from gevent.pywsgi import WSGIServer
 from geventwebsocket import WebSocketError
@@ -26,13 +27,17 @@ def handle_websocket():
         abort(400, 'Expected WebSocket request!')
     while True:
         try:
-            message = wsock.receive()
+            msg = json.loads(wsock.receive())
             if wsock in clients:
                 clients.remove(wsock)
             clients.append(wsock)
             for wsock in clients:
                 try:
-                    wsock.send(message)
+                    answer = json.dumps({
+                        'user': msg['user'],
+                        'text': msg['text']
+                        })
+                    wsock.send(answer)
                 except Exception:
                     pass
         except WebSocketError:
