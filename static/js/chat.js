@@ -17,8 +17,7 @@ ws.onmessage = function (event) {
         scrollTop: $('#dialogs-list')[0].scrollHeight
     }, 800);
     };
-
-    if (text == "" || text == "\n")
+    if (! /\S/.test(msg.text))
         return;
     var date = new Date();
     var h = date.getHours();
@@ -36,7 +35,8 @@ $(document).keypress(function(event) {
 });
 
 $("#send-button").click(function(event) {
-    ws.send(nick + ":" + $("#input-msg").val());
+    if (/\S/.test($("#input-msg").val()))
+        ws.send(nick + ":" + $("#input-msg").val());
     $("#input-msg").val("");
     textAreaInit();
 });
