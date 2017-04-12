@@ -10,7 +10,7 @@ ws.onmessage = function (event) {
     msg = JSON.parse(event.data);
     if (clients.indexOf(msg.user) == -1) {
         clients.push(msg.user);
-        $("#dialogs-list ul").append("<li id='" + msg.user + "' " + (nick == msg.user ? " class='selected'" : "") + "><img src='https://lorempixel.com/54/54/cats/' alt='' class='avatar online'><p class='username'>" + msg.user + "</p><p class='last-msg'>Ex aliquam optio quae odio.</p></li>");
+        $("#dialogs-list ul").append("<li id='" + msg.user + "' " + (nick == msg.user ? " class='selected'" : "") + "><img src='https://lorempixel.com/54/54/cats/' alt='' class='avatar online'><p class='username'>" + msg.user + "</p><p class='last-msg'>Online</p></li>");
         $("#dialogs-list").stop().animate({
         scrollTop: $('#dialogs-list')[0].scrollHeight
     }, 800);
