@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import html
 import json
 from bottle import Bottle, request, abort, static_file, template
 from gevent.pywsgi import WSGIServer
@@ -34,8 +35,8 @@ def handle_websocket():
             for wsock in clients:
                 try:
                     answer = json.dumps({
-                        'user': msg['user'],
-                        'text': msg['text']
+                        'user': html.escape(msg['user']),
+                        'text': html.escape(msg['text'])
                         })
                     wsock.send(answer)
                 except Exception:
@@ -43,5 +44,5 @@ def handle_websocket():
         except WebSocketError:
             break
 
-server = WSGIServer(("0.0.0.0", 8080), chat, handler_class=WebSocketHandler)
+server = WSGIServer(("0.0.0.0", 80), chat, handler_class=WebSocketHandler)
 server.serve_forever()
